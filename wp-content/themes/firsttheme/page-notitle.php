@@ -1,4 +1,8 @@
-<?php get_header(); ?>
+<?php
+/*
+    Template Name: Page No Title
+*/
+get_header(); ?>
 <div>
     <?php
         if (have_posts()): ?>
