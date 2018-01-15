@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+
 <div class="black-img">
     <img src=<?php echo get_template_directory_uri() . "/img/tugujogja.jpg"; ?> alt="" class="img-search">
     <div class="row">
@@ -17,6 +18,7 @@
         <?php while (have_posts()):
             the_post();
 
+            //template content per post format
             get_template_part("content", get_post_format());
         ?>
         <?php   endwhile; ?>
@@ -24,4 +26,5 @@
     <?php endif; ?>
     Ini adalah tampilan index theme
 </div>
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>

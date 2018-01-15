@@ -9,6 +9,7 @@ function firsttheme_script_enqueue(){
 }
 add_action("wp_enqueue_scripts", "firsttheme_script_enqueue");
 
+//active menu customize in admin
 function firsttheme_setup(){
     add_theme_support("menus");
     register_nav_menu("primary", "primary header navigation");
@@ -16,11 +17,29 @@ function firsttheme_setup(){
 }
 add_action("after_setup_theme", "firsttheme_setup");
 
-//editor theme support
+//editor theme support function
 add_theme_support("custom-background");
 add_theme_support("custom-header");
 add_theme_support("post-thumbnails");
 
-//post format
+//post format function
 add_theme_support("post-formats", array("aside", "image", "video"));
+
+//sidebar format function
+function firsttheme_widget_setup(){
+    register_sidebar(
+        array(
+            "name"          => "sidebar",
+            "id"            => "sidebar-1",
+            "class"         => "sidebar-custom",
+            "description"   => "Standart sidebar",
+            "before_widget" => "<aside id='%1$s' class='widget %2$s'>",
+            "after_widget"  => "</aside>",
+            "before_tittlw" => "<h1 class='widget-title'>",
+            "after_widget"  => "</h1>",
+        )
+    );
+}
+
+add_action("widgets_init", "firsttheme_widget_setup");
 ?>
