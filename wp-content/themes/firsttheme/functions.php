@@ -14,5 +14,13 @@ function firsttheme_setup(){
     register_nav_menu("primary", "primary header navigation");
     // ragister_nav_menu("secondary", "footer navigation");
 }
-add_action("after_setup_theme", "firsttheme_setup")
+add_action("after_setup_theme", "firsttheme_setup");
+
+//editor theme support
+add_theme_support("custom-background");
+add_theme_support("custom-header");
+add_theme_support("post-thumbnails");
+
+//post format
+add_theme_support("post-formats", array("aside", "image", "video"));
 ?>

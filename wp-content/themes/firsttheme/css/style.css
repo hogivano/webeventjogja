@@ -4,6 +4,22 @@ body {
   padding: 0;
 }
 
+.black-img {
+    width: 100%;
+    height: auto;
+    background-color: black;
+    align-content: center;
+}
+
+.img-search {
+    width: 100%;
+    height: auto;
+}
+
+.input-search {
+    width: 70%;
+}
+
 .main {
     padding: 20px;
     display: block;
