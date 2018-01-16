@@ -1,4 +1,22 @@
 <?php get_header();
+
+global $wpdp;
+
+$array = $wpdb->get_results("SELECT * FROM wp_posts", OBJECT);
+// $result = $conn->query($sql);
+echo $array;
+if ($array) {
+    # code...
+    foreach ($array as $ok) {
+        # code...
+        if ($ok->post_status == "publish"){
+            echo $ok->post_title . "<br>";
+        }
+    }
+} else {
+    echo "noting";
+    echo $wpdp;
+}
 ?>
 
 <div class="black-img">
@@ -21,24 +39,14 @@
     if (is_front_page()){
         echo "Masuk in if";
         $query = new WP_Query($args);
+
         echo "melawati query";
         if ($query->have_posts()):
             echo "good if";
             while ($query->have_posts()):
                 echo "in while";
-<<<<<<< HEAD
                 echo $query->the_post();
                 get_template_part("content", get_post_format());
-=======
-                echo $query->the_post(); ?>
-                <li id=<?php the_id(); ?>>
-                    <h2>The Standar post : <?php the_title(); ?></h2>
-                    <small>Post pada : <?php the_time( "j F Y" ); ?> Waktu : <?php the_time("g:i a"); ?> in <?php the_category() ?></small>
-                    <p><?php the_content(); ?></p>
-                </li>
-                <?php
-                get_template("content-standar");
->>>>>>> eb0912990a42d983749d681df18b211866bf53aa
             endwhile;
         endif;
         echo "end if";
@@ -63,7 +71,6 @@
         <?php   endwhile; ?>
         </ul>
     <?php endif; ?>
-    Ini adalah tampilan index theme
 </div>
 <!-- call sidebar widget -->
 <?php get_sidebar(); ?>
