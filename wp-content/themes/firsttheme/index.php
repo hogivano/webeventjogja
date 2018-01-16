@@ -28,7 +28,7 @@
             while ($query->have_posts()):
                 echo "in while";
                 echo $query->the_post();
-                get_template("content", get_post_format());
+                get_template_part("content", get_post_format());
             endwhile;
         endif;
         echo "end if";
@@ -42,11 +42,14 @@
         if (have_posts()): ?>
         <ul class="list-group" >
         <?php while (have_posts()):
-            the_post();
+            the_post(); ?>
 
-            //template content per post format
-            get_template_part("content", get_post_format());
-        ?>
+            <div class="row">
+            <?php
+                //template content per post format
+                get_template_part("content", get_post_format());
+            ?>
+            </div>
         <?php   endwhile; ?>
         </ul>
     <?php endif; ?>
