@@ -1,5 +1,4 @@
 <?php get_header();
-
 ?>
 
 <div class="black-img">
@@ -27,8 +26,14 @@
             echo "good if";
             while ($query->have_posts()):
                 echo "in while";
-                echo $query->the_post();
-                get_template("content", get_post_format());
+                echo $query->the_post(); ?>
+                <li id=<?php the_id(); ?>>
+                    <h2>The Standar post : <?php the_title(); ?></h2>
+                    <small>Post pada : <?php the_time( "j F Y" ); ?> Waktu : <?php the_time("g:i a"); ?> in <?php the_category() ?></small>
+                    <p><?php the_content(); ?></p>
+                </li>
+                <?php
+                get_template("content-standar");
             endwhile;
         endif;
         echo "end if";
