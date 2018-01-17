@@ -60,21 +60,22 @@ class EventPluginHendri {
     //static method to call this method just can call methot not use object class
     static function register_admin_scripts(){
         add_action("admin_enqueue_scripts", array("EventPluginHendri", "enqueue"));
-    }
 
-    function activate(){
-        //generate a custom post type
-        $this->custom_post_type();
-        // echo "This plugin is activate";
-
-        //flush rewrite rules
-        flush_rewrite_rules();
     }
-
-    function deactivate(){
-        //flush rewrite rules
-        flush_rewrite_rules();
-    }
+    //
+    // function activate(){
+    //     //generate a custom post type
+    //     $this->custom_post_type();
+    //     // echo "This plugin is activate";
+    //
+    //     //flush rewrite rules
+    //     flush_rewrite_rules();
+    // }
+    //
+    // function deactivate(){
+    //     //flush rewrite rules
+    //     flush_rewrite_rules();
+    // }
 
     //add custom post type in menus admin
     function custom_post_type(){
@@ -98,10 +99,12 @@ if (class_exists("EventPluginHendri")) {
 
 //activation
 //__file__ => can access global file location
-register_activation_hook( __FILE__, array($eventPluginHendri, "activate"));
+require_once plugin_dir_path( __FILE__) . "inc/event-plugin-hendri-activate.php";
+register_activation_hook( __FILE__, array("EventPluginHendriActivate", "activate"));
 // add_action("init", "function_name");
 
 //deactivation
-register_deactivation_hook( __FILE__, array($eventPluginHendri, "deactivate"));
+require_once plugin_dir_path( __FILE__) . "inc/event-plugin-hendri-deactivate.php";
+register_deactivation_hook( __FILE__, array("EventPluginHendriDeactivate", "deactivate"));
 
 ?>
