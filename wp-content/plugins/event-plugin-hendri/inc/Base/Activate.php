@@ -2,9 +2,12 @@
 /**
  * @package EventPluginHendri
 */
+namespace Inc\Base;
 
-class EventPluginHendriActivate{
+class Activate{
     public static function activate(){
         flush_rewrite_rules();
     }
 }
+
+?>

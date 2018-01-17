@@ -2,9 +2,12 @@
 /**
  * @package EventPluginHendri
 */
+namespace Inc\Base;
 
-class EventPluginHendriDeactivate {
+class Deactivate {
     public static function deactivate(){
         flush_rewrite_rules();
     }
 }
+
+?>

@@ -32,105 +32,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 Copyright 2005-2015 Automattic, Inc.
 */
 
-if (!defined("ABSPATH")) {
-    # code...
-    die;
-}
+// if (!defined("ABSPATH")) {
+//     # code...
+//     die;
+// }
+
 
 defined("ABSPATH") or die("Hey, you cannot acces this file, you still human!");
 
 //cek apaka ada file atau support dengan plugin
-if (! function_exists("add_action")) {
+// if (! function_exists("add_action")) {
+//     # code...
+//     echo "Hey, you cannot acces this file, you still human!";
+//     exit;
+// }
+
+if (file_exists(dirname(__FILE__) . "/vendor/autoload.php") ) {
     # code...
-    echo "Hey, you cannot acces this file, you still human!";
-    exit;
+    require_once dirname(__FILE__) . "/vendor/autoload.php";
 }
 
-class EventPluginHendri {
-    //methods
+define ("PLUGIN_PATH", plugin_dir_path(__FILE__ ));
 
-    public $plugin;
-    //public can access everywhere
-    //protected just can access in class self and this child class
-    //private just can access in class self
-    function __construct(){
-        //call function agar bisa dijalankan
-        $this->plugin = plugin_basename(__FILE__);
-        add_action("init", array($this, "custom_post_type"));
-    }
-
-
-    //static method to call this method just can call methot not use object class
-    function register_admin_scripts(){
-        add_action("admin_enqueue_scripts", array($this, "enqueue"));
-
-        add_action("admin_menu", array($this, "add_admin_pages"));
-
-        add_filter("plugin_action_links_" . $this->plugin ,
-                array($this, "settings_link"));
-
-    }
-
-    public function settings_link($links){
-        // add custom settings link
-        $settings_link = "<a href='admin.php?page=event_plugin_hendri'>Settings</a>";
-        array_push($links, $settings_link);
-        return $links;
-    }
-
-    public function add_admin_pages(){
-        add_menu_page( "Event Plugin Hendri", "EPH",
-            "manage_options", "event_plugin_hendri", array($this, "admin_index")
-            , "dashicons-store", 110);
-    }
-
-    public function admin_index(){
-        //use templates
-        require_once plugin_dir_path( __FILE__) . "templates/admin.php";
-    }
-    //
-    // function activate(){
-    //     //generate a custom post type
-    //     $this->custom_post_type();
-    //     // echo "This plugin is activate";
-    //
-    //     //flush rewrite rules
-    //     flush_rewrite_rules();
-    // }
-    //
-    // function deactivate(){
-    //     //flush rewrite rules
-    //     flush_rewrite_rules();
-    // }
-
-    //add custom post type in menus admin
-    function custom_post_type(){
-        register_post_type("book", ["public" => true, "label" => "Books"]);
-    }
-
-    function enqueue(){
-        //enqueue all our script
-        wp_enqueue_style( "mypluginstyle", plugins_url("/assets/mystyle.css", __FILE__));
-        wp_enqueue_script("mypluginscript", plugins_url("/assets/myscript.js", __FILE__));
-    }
+if (class_exists("Inc\\Init")) {
+    # code...
+    Inc\Init::register_services();
+    var_dump("good");
 }
-
-//melihat apakah ada kelas dalam file
-if (class_exists("EventPluginHendri")) {
-    $eventPluginHendri = new EventPluginHendri();
-    $eventPluginHendri->register_admin_scripts();
-    //static method
-    // $eventPluginHendri::register_admin_scripts();
-}
-
-//activation
-//__file__ => can access global file location
-require_once plugin_dir_path( __FILE__) . "inc/event-plugin-hendri-activate.php";
-register_activation_hook( __FILE__, array("EventPluginHendriActivate", "activate"));
-// add_action("init", "function_name");
-
-//deactivation
-require_once plugin_dir_path( __FILE__) . "inc/event-plugin-hendri-deactivate.php";
-register_deactivation_hook( __FILE__, array("EventPluginHendriDeactivate", "deactivate"));
-
 ?>
