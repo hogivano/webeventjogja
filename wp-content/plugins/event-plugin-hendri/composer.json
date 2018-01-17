@@ -1,0 +1,17 @@
+{
+    "name": "root/event-plugin-hendri",
+    "description": "Start event plugin",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "hogivano",
+            "email": "ogivano06@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {"Inc\\" : "./inc"}
+    }
+}

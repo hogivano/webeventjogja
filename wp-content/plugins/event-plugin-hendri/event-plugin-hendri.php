@@ -49,18 +49,44 @@ if (! function_exists("add_action")) {
 class EventPluginHendri {
     //methods
 
+    public $plugin;
     //public can access everywhere
     //protected just can access in class self and this child class
     //private just can access in class self
     function __construct(){
         //call function agar bisa dijalankan
+        $this->plugin = plugin_basename(__FILE__);
         add_action("init", array($this, "custom_post_type"));
     }
 
-    //static method to call this method just can call methot not use object class
-    static function register_admin_scripts(){
-        add_action("admin_enqueue_scripts", array("EventPluginHendri", "enqueue"));
 
+    //static method to call this method just can call methot not use object class
+    function register_admin_scripts(){
+        add_action("admin_enqueue_scripts", array($this, "enqueue"));
+
+        add_action("admin_menu", array($this, "add_admin_pages"));
+
+        add_filter("plugin_action_links_" . $this->plugin ,
+                array($this, "settings_link"));
+
+    }
+
+    public function settings_link($links){
+        // add custom settings link
+        $settings_link = "<a href='admin.php?page=event_plugin_hendri'>Settings</a>";
+        array_push($links, $settings_link);
+        return $links;
+    }
+
+    public function add_admin_pages(){
+        add_menu_page( "Event Plugin Hendri", "EPH",
+            "manage_options", "event_plugin_hendri", array($this, "admin_index")
+            , "dashicons-store", 110);
+    }
+
+    public function admin_index(){
+        //use templates
+        require_once plugin_dir_path( __FILE__) . "templates/admin.php";
     }
     //
     // function activate(){
@@ -82,7 +108,7 @@ class EventPluginHendri {
         register_post_type("book", ["public" => true, "label" => "Books"]);
     }
 
-    static function enqueue(){
+    function enqueue(){
         //enqueue all our script
         wp_enqueue_style( "mypluginstyle", plugins_url("/assets/mystyle.css", __FILE__));
         wp_enqueue_script("mypluginscript", plugins_url("/assets/myscript.js", __FILE__));
@@ -92,9 +118,9 @@ class EventPluginHendri {
 //melihat apakah ada kelas dalam file
 if (class_exists("EventPluginHendri")) {
     $eventPluginHendri = new EventPluginHendri();
-
+    $eventPluginHendri->register_admin_scripts();
     //static method
-    $eventPluginHendri::register_admin_scripts();
+    // $eventPluginHendri::register_admin_scripts();
 }
 
 //activation
