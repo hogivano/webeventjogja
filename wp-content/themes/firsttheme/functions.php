@@ -1,4 +1,5 @@
 <?php
+//add_action is call function to running
 
 function firsttheme_script_enqueue(){
     wp_enqueue_style("frameworkstyle", get_template_directory_uri() . "/css/bootstrap.min.css", array(), "3.3.7", "all");
@@ -15,6 +16,7 @@ function firsttheme_setup(){
     register_nav_menu("primary", "primary header navigation");
     // ragister_nav_menu("secondary", "footer navigation");
 }
+//can use init/after_custom_theme
 add_action("after_setup_theme", "firsttheme_setup");
 
 //editor theme support function
@@ -33,7 +35,7 @@ function firsttheme_widget_setup(){
             "id"            => "sidebar-1",
             "class"         => "sidebar-custom",
             "description"   => "Standart sidebar",
-            "before_widget" => "<aside id='%1$s' class='widget %2$s'>",
+            "before_widget" => "<aside id='%1' class='widget %2'>",
             "after_widget"  => "</aside>",
             "before_tittlw" => "<h1 class='widget-title'>",
             "after_widget"  => "</h1>",
