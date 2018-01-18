@@ -11,8 +11,10 @@ final class Init{
      * @return array full list of class
      */
     public static function get_services(){
-        $arrayName = array(Pages\Admin::class);
-        return $arrayName;
+        $arrayClass = array(Pages\Admin::class,
+                            Base\Enqueue::class,
+                            Base\SettingsLinks::class);
+        return $arrayClass;
     }
 
     /**
