@@ -10,6 +10,7 @@ final class Init{
      * Store all the clase inside array
      * @return array full list of class
      */
+
     public static function get_services(){
         $arrayClass = array(Pages\Admin::class,
                             Base\Enqueue::class,
