@@ -14,7 +14,8 @@ final class Init{
     public static function get_services(){
         $arrayClass = array(Pages\Admin::class,
                             Base\Enqueue::class,
-                            Base\SettingsLinks::class);
+                            Base\SettingsLinks::class,
+                            Base\EventPostType::class);
         return $arrayClass;
     }
 
