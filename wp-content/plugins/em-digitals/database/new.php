@@ -2,7 +2,7 @@
 /**
  * @package em-digitals
  */
-class new {
+class Baru {
     global $wpdp;
     $installed_ver;
 

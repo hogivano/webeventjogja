@@ -28,21 +28,21 @@ class SettingsApi{
         }
 
         $admin_page = $this->admin_pages[0];
+
         $subPages = array(
            //hook from wordpress
            array (
                "parent_slug"   => $admin_page["menu_slug"],
-               "page_title"    => "Event Plugin Hendri",
-               "menu_title"    => "EPH",
-               "capability"    => "manage_options",
-               "menu_slug"     => "event_plugin_hendri",
-               "callback"      => function (){ echo '<h1>Dashboard</h1>';},
-               "icon_url"      => "dashicons-store",
-               "position"      => 110
+               "page_title"    => $admin_page["page_title"],
+               "menu_title"    => $admin_page["menu_title"],
+               "capability"    => $admin_page["capability"],
+               "menu_slug"     => $admin_page["menu_slug"],
+               "callback"      => $admin_page["callback"]
             )
         );
+        $this->admin_subPages = $subPages;
 
-        return $subPages;
+        return $this;
     }
 
     public function addPages(array $pages){
@@ -51,7 +51,7 @@ class SettingsApi{
     }
 
     public function addSubPages(array $pages){
-        $this->admin_subPages = $pages;
+        $this->admin_subPages = array_merge($this->admin_subPages, $pages);
         return $this;
     }
 
@@ -60,6 +60,12 @@ class SettingsApi{
             # code...
             add_menu_page($page["page_title"], $page["menu_title"], $page["capability"], $page["menu_slug"],
                             $page["callback"], $page["icon_url"], $page["position"]);
+        }
+
+        foreach ($this->admin_subPages as $page) {
+            # code...
+            add_submenu_page($page["parent_slug"], $page["page_title"], $page["menu_title"], $page["capability"],
+                            $page["menu_slug"], $page["callback"]);
         }
     }
 }

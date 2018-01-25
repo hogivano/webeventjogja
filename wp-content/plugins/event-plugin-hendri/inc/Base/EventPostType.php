@@ -20,5 +20,9 @@ class EventPostType{
                         ));
         register_post_type( "Event", $args);
     }
+
+    public function eph_meta_box_custom(){
+
+    }
 }
  ?>
