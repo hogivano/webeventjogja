@@ -22,7 +22,9 @@ class EventPostType{
     }
 
     public function eph_meta_box_custom(){
-
+        add_meta_box(
+            "EPH Meta",
+            "", $callback, $screen = null, $context = 'advanced', $priority = 'default', $callback_args = null )
     }
 }
  ?>
